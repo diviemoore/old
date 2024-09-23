@@ -1283,6 +1283,7 @@ HASHCODE_FIELDS_PER_SCANNER = {
     "Legitify Scan": ["title", "endpoints", "severity"],
     "ThreatComposer Scan": ["title", "description"],
     "Invicti Scan": ["title", "description", "severity"],
+    "Checkmarx CxFlow SAST": ["vuln_id_from_tool", "file_path", "line"],
 }
 
 # Override the hardcoded settings here via the env var
@@ -1508,6 +1509,7 @@ DEDUPLICATION_ALGORITHM_PER_PARSER = {
     "Legitify Scan": DEDUPE_ALGO_HASH_CODE,
     "ThreatComposer Scan": DEDUPE_ALGO_UNIQUE_ID_FROM_TOOL_OR_HASH_CODE,
     "Invicti Scan": DEDUPE_ALGO_HASH_CODE,
+    "Checkmarx CxFlow SAST": DEDUPE_ALGO_HASH_CODE,
 }
 
 # Override the hardcoded settings here via the env var
