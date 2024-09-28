@@ -818,7 +818,7 @@ class CSVExportView(View):
                                 continue
                             fields.append(key)
                     except Exception as exc:
-                        logger.error("Error in attribute: " + str(exc))
+                        logger.exception("Error in attribute: " + str(exc))
                         fields.append(key)
                         continue
                 fields.extend((
@@ -856,7 +856,7 @@ class CSVExportView(View):
                                 value = value.replace("\n", " NEWLINE ").replace("\r", "")
                             fields.append(value)
                     except Exception as exc:
-                        logger.error("Error in attribute: " + str(exc))
+                        logger.exception("Error in attribute: " + str(exc))
                         fields.append("Value not supported")
                         continue
                 fields.append(finding.test.title)
@@ -951,7 +951,7 @@ class ExcelExportView(View):
                             cell.font = font_bold
                             col_num += 1
                     except Exception as exc:
-                        logger.error("Error in attribute: " + str(exc))
+                        logger.exception("Error in attribute: " + str(exc))
                         cell = worksheet.cell(row=row_num, column=col_num, value=key)
                         continue
                 cell = worksheet.cell(row=row_num, column=col_num, value="found_by")
@@ -1002,7 +1002,7 @@ class ExcelExportView(View):
                             worksheet.cell(row=row_num, column=col_num, value=value)
                             col_num += 1
                     except Exception as exc:
-                        logger.error("Error in attribute: " + str(exc))
+                        logger.exception("Error in attribute: " + str(exc))
                         worksheet.cell(row=row_num, column=col_num, value="Value not supported")
                         continue
                 worksheet.cell(row=row_num, column=col_num, value=finding.test.test_type.name)
