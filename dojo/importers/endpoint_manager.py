@@ -1,5 +1,4 @@
 import logging
-from typing import List
 
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
@@ -25,7 +24,7 @@ class EndpointManager:
     def add_endpoints_to_unsaved_finding(
         self,
         finding: Finding,
-        endpoints: List[Endpoint],
+        endpoints: list[Endpoint],
         **kwargs: dict,
     ) -> None:
         """
@@ -63,7 +62,7 @@ class EndpointManager:
     @app.task()
     def mitigate_endpoint_status(
         self,
-        endpoint_status_list: List[Endpoint_Status],
+        endpoint_status_list: list[Endpoint_Status],
         user: Dojo_User,
         **kwargs: dict,
     ) -> None:
@@ -85,7 +84,7 @@ class EndpointManager:
     @app.task()
     def reactivate_endpoint_status(
         self,
-        endpoint_status_list: List[Endpoint_Status],
+        endpoint_status_list: list[Endpoint_Status],
         **kwargs: dict,
     ) -> None:
         """
@@ -104,9 +103,9 @@ class EndpointManager:
 
     def chunk_endpoints(
         self,
-        endpoint_list: List[Endpoint],
+        endpoint_list: list[Endpoint],
         chunk_size: int = settings.ASYNC_FINDING_IMPORT_CHUNK_SIZE,
-    ) -> List[List[Endpoint]]:
+    ) -> list[list[Endpoint]]:
         """
         Split a single large list into a list of lists of size `chunk_size`.
         For Example
@@ -123,7 +122,7 @@ class EndpointManager:
     def chunk_endpoints_and_disperse(
         self,
         finding: Finding,
-        endpoints: List[Endpoint],
+        endpoints: list[Endpoint],
         **kwargs: dict,
     ) -> None:
         """
@@ -147,7 +146,7 @@ class EndpointManager:
 
     def clean_unsaved_endpoints(
         self,
-        endpoints: List[Endpoint],
+        endpoints: list[Endpoint],
     ) -> None:
         """
         Clean endpoints that are supplied. For any endpoints that fail this validation
@@ -162,7 +161,7 @@ class EndpointManager:
 
     def chunk_endpoints_and_reactivate(
         self,
-        endpoint_status_list: List[Endpoint_Status],
+        endpoint_status_list: list[Endpoint_Status],
         **kwargs: dict,
     ) -> None:
         """
@@ -186,7 +185,7 @@ class EndpointManager:
 
     def chunk_endpoints_and_mitigate(
         self,
-        endpoint_status_list: List[Endpoint_Status],
+        endpoint_status_list: list[Endpoint_Status],
         user: Dojo_User,
         **kwargs: dict,
     ) -> None:

@@ -7,7 +7,6 @@ from datetime import datetime
 from functools import reduce
 from tempfile import NamedTemporaryFile
 from time import strftime
-from typing import List, Optional, Tuple
 
 from django.conf import settings
 from django.contrib import messages
@@ -427,7 +426,7 @@ class ViewEngagement(View):
     def get_filtered_tests(
         self,
         request: HttpRequest,
-        queryset: List[Test],
+        queryset: list[Test],
         engagement: Engagement,
     ):
         filter_string_matching = get_system_setting("filter_string_matching", False)
@@ -712,9 +711,9 @@ class ImportScanResultsView(View):
     def get_engagement_or_product(
         self,
         user: Dojo_User,
-        engagement_id: Optional[int] = None,
-        product_id: Optional[int] = None,
-    ) -> Tuple[Engagement, Product, Product | Engagement]:
+        engagement_id: int | None = None,
+        product_id: int | None = None,
+    ) -> tuple[Engagement, Product, Product | Engagement]:
         """
         Using the path parameters, either fetch the product or engagement
         """
@@ -775,7 +774,7 @@ class ImportScanResultsView(View):
         self,
         request: HttpRequest,
         engagement_or_product: Engagement | Product,
-    ) -> Tuple[JIRAImportScanForm | None, bool]:
+    ) -> tuple[JIRAImportScanForm | None, bool]:
         """
         Returns a JiraImportScanForm if jira is enabled
         """
@@ -802,7 +801,7 @@ class ImportScanResultsView(View):
         self,
         product: Product,
         engagement: Engagement,
-    ) -> Tuple[Product_Tab, dict]:
+    ) -> tuple[Product_Tab, dict]:
         """
         Determine how the product tab will be rendered, and what tab will be selected
         as currently active
@@ -819,9 +818,9 @@ class ImportScanResultsView(View):
     def handle_request(
         self,
         request: HttpRequest,
-        engagement_id: Optional[int] = None,
-        product_id: Optional[int] = None,
-    ) -> Tuple[HttpRequest, dict]:
+        engagement_id: int | None = None,
+        product_id: int | None = None,
+    ) -> tuple[HttpRequest, dict]:
         """
         Process the common behaviors between request types, and then return
         the request and context dict back to be rendered
@@ -1066,8 +1065,8 @@ class ImportScanResultsView(View):
     def get(
         self,
         request: HttpRequest,
-        engagement_id: Optional[int] = None,
-        product_id: Optional[int] = None,
+        engagement_id: int | None = None,
+        product_id: int | None = None,
     ) -> HttpResponse:
         """
         Process GET requests for the Import View
@@ -1084,8 +1083,8 @@ class ImportScanResultsView(View):
     def post(
         self,
         request: HttpRequest,
-        engagement_id: Optional[int] = None,
-        product_id: Optional[int] = None,
+        engagement_id: int | None = None,
+        product_id: int | None = None,
     ) -> HttpResponse:
         """
         Process POST requests for the Import View
@@ -1579,8 +1578,7 @@ def get_engagements(request):
     if not url:
         msg = "Please use the export button when exporting engagements"
         raise ValidationError(msg)
-    if url.startswith("url="):
-        url = url[4:]
+    url = url.removeprefix("url=")
 
     path_items = list(filter(None, re.split(r"/|\?", url)))
 
